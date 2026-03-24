@@ -1,35 +1,66 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>My Chatbot</title>
+    <title>Chatbot</title>
+
+    <style>
+        body {
+            background: #111;
+            color: white;
+            text-align: center;
+            font-family: Arial;
+        }
+
+        input {
+            padding: 10px;
+            width: 200px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        button {
+            padding: 10px;
+            border-radius: 10px;
+            background: orange;
+            border: none;
+        }
+
+        #chat {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
 
-<h1>🤖 Mera Chatbot</h1>
+<h1>🤖 Smart Chatbot</h1>
 
-<input type="text" id="userInput" placeholder="Kuch likho...">
+<input id="userInput" placeholder="Message...">
 <button onclick="reply()">Send</button>
 
-<p id="botReply"></p>
+<div id="chat"></div>
 
 <script>
 function reply() {
-    let input = document.getElementById("userInput").value;
+    let input = document.getElementById("userInput").value.toLowerCase();
     let output = "";
 
-    if(input == "hello") {
+    if(input.includes("hello")) {
         output = "Hello bhai 😎";
     }
-    else if(input == "kaise ho") {
+    else if(input.includes("kaise")) {
         output = "Main mast hoon 🔥";
+    }
+    else if(input.includes("naam")) {
+        output = "Main Smart Bot hoon 🤖";
     }
     else {
         output = "Samajh nahi aaya 😅";
     }
 
-    document.getElementById("botReply").innerText = output;
+    let chatDiv = document.getElementById("chat");
+    chatDiv.innerHTML += "<p><b>Tum:</b> " + input + "</p>";
+    chatDiv.innerHTML += "<p><b>Bot:</b> " + output + "</p>";
 }
 </script>
 
