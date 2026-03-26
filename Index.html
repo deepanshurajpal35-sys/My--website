@@ -56,7 +56,13 @@
   <input id="input" placeholder="Message...">
   <button onclick="send()">Send</button>
 </div>
-
+  
+document.getElementById("input").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    send();
+  }
+});
+  
 <script>
 function send() {
   let input = document.getElementById("input").value;
@@ -77,6 +83,12 @@ function send() {
   else if(input.toLowerCase().includes("business")) {
     reply = "Business start kar raha hai kya? 🚀";
   }
+    else if(input.toLowerCase().includes("mobile")) {
+  reply = "Mobile accessories ka business best hai 🔥";
+}
+else if(input.toLowerCase().includes("coding")) {
+  reply = "Coding seekh raha hai? Bhai future bright hai 🚀";
+}
   else if(input.toLowerCase().includes("name")) {
     reply = "Mera naam AI Bot hai 🤖";
   }
