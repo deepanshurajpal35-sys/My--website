@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>AI Chatbot</title>
+  <title>Voice AI Chatbot</title>
 </head>
 
-<body style="background:black; color:white; font-family:sans-serif;">
+<body style="background:black; color:white; font-family:sans-serif; text-align:center;">
 
-<h2>🤖 AI Chatbot</h2>
+<h2>🎤 Voice AI Chatbot</h2>
 
-<input id="input" placeholder="Type..." />
+<input id="input" placeholder="Type or Speak..." />
 <button onclick="send()">Send</button>
+<button onclick="startVoice()">🎤 Speak</button>
 
 <div id="chat"></div>
 
@@ -37,14 +38,34 @@ async function send() {
 
     let data = await res.json();
 
-    chat.innerHTML += "<p><b>Bot:</b> " + data.message + "</p>";
-    chat.scrollTop = chat.scrollHeight;
+    let reply = data.message;
+
+    chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
+
+    // Voice reply
+    let speech = new SpeechSynthesisUtterance(reply);
+    speech.lang = "en-US";
+    speechSynthesis.speak(speech);
 
   } catch (e) {
     chat.innerHTML += "<p><b>Bot:</b> Error 😅</p>";
   }
 
   document.getElementById("input").value = "";
+}
+
+// Voice input
+function startVoice() {
+  let recognition = new webkitSpeechRecognition();
+  recognition.lang = "hi-IN";
+
+  recognition.onresult = function(event) {
+    let text = event.results[0][0].transcript;
+    document.getElementById("input").value = text;
+    send();
+  };
+
+  recognition.start();
 }
 </script>
 
