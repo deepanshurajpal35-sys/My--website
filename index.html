@@ -57,7 +57,12 @@ function reply() {
     else {
         output = "Samajh nahi aaya 😅";
     }
-
+else if(input.toLowerCase().includes("mobile")) {
+  reply = "Mobile accessories ka business best hai 🔥";
+}
+else if(input.toLowerCase().includes("coding")) {
+  reply = "Coding seekh raha hai? Bhai future bright hai 🚀";
+}
     let chatDiv = document.getElementById("chat");
     chatDiv.innerHTML += "<p><b>Tum:</b> " + input + "</p>";
     chatDiv.innerHTML += "<p><b>Bot:</b> " + output + "</p>";
