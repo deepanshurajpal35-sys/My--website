@@ -1,20 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Shop Chatbot</title>
+  <title>Smart Shop Bot</title>
 </head>
 
 <body style="background:black; color:white; font-family:sans-serif; text-align:center;">
 
-<h2>🛒 Mobile Shop Chatbot</h2>
+<h2>🤖 Smart Shop Chatbot</h2>
 
-<input id="input" placeholder="Ask about products..." />
+<input id="input" placeholder="Ask anything..." />
 <button onclick="send()">Send</button>
 
 <div id="chat"></div>
 
 <script>
-function send() {
+async function send() {
   let input = document.getElementById("input").value.toLowerCase();
   if(input === "") return;
 
@@ -22,32 +22,48 @@ function send() {
 
   chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
 
-  let reply = "Samajh nahi aaya 😅";
+  let reply = "";
 
-  if(input.includes("earphone")) {
-    reply = "🎧 Earphones available hai - ₹199 se start 💰";
-  }
-  else if(input.includes("charger")) {
-    reply = "🔌 Fast charger ₹299 🔥";
-  }
-  else if(input.includes("cover")) {
-    reply = "📱 Mobile covers ₹99 se start 😎";
-  }
-  else if(input.includes("price")) {
-    reply = "💰 Products ₹99 se ₹999 tak available hai";
-  }
-  else if(input.includes("location")) {
-    reply = "📍 Sultanpur main shop hai bhai 😎";
-  }
-  else if(input.includes("delivery")) {
-    reply = "🚚 Home delivery available hai";
-  }
-  else if(input.includes("contact")) {
-    reply = "📞 Call karo: 7000406944";
+  try {
+    let res = await fetch("https://api.affiliateplus.xyz/api/chatbot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: input,
+        botname: "ShopBot",
+        ownername: "Deepanshu"
+      })
+    });
+
+    let data = await res.json();
+    reply = data.message;
+
+  } catch (e) {
+
+    // fallback (business replies)
+    if(input.includes("earphone")) {
+      reply = "🎧 Bt nackbands ₹199 se start or airpods 299 se start";
+    }
+    else if(input.includes("charger")) {
+      reply = "🔌 Charger ₹299";
+    }
+    else if(input.includes("cover")) {
+      reply = "📱 mobile phone gorilla glass ₹50 se startCovers ₹99 se";
+    }
+    else if(input.includes("location")) {
+      reply = "📍 Sultanpur main shop hai near bus stand";
+    }
+    else if(input.includes("contact")) {
+      reply = "📞 7000406944";
+    }
+    else {
+      reply = "Network issue 😅 phir try karo";
+    }
   }
 
   chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
-
   document.getElementById("input").value = "";
 }
 </script>
