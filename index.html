@@ -1,71 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Voice AI Chatbot</title>
+  <title>Shop Chatbot</title>
 </head>
 
 <body style="background:black; color:white; font-family:sans-serif; text-align:center;">
 
-<h2>🎤 Voice AI Chatbot</h2>
+<h2>🛒 Mobile Shop Chatbot</h2>
 
-<input id="input" placeholder="Type or Speak..." />
+<input id="input" placeholder="Ask about products..." />
 <button onclick="send()">Send</button>
-<button onclick="startVoice()">🎤 Speak</button>
 
 <div id="chat"></div>
 
 <script>
-async function send() {
-  let input = document.getElementById("input").value;
+function send() {
+  let input = document.getElementById("input").value.toLowerCase();
   if(input === "") return;
 
   let chat = document.getElementById("chat");
 
   chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
 
-  try {
-    let res = await fetch("https://api.affiliateplus.xyz/api/chatbot", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        message: input,
-        botname: "MyBot",
-        ownername: "Deepanshu"
-      })
-    });
+  let reply = "Samajh nahi aaya 😅";
 
-    let data = await res.json();
-
-    let reply = data.message;
-
-    chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
-
-    // Voice reply
-    let speech = new SpeechSynthesisUtterance(reply);
-    speech.lang = "en-US";
-    speechSynthesis.speak(speech);
-
-  } catch (e) {
-    chat.innerHTML += "<p><b>Bot:</b> Error 😅</p>";
+  if(input.includes("earphone")) {
+    reply = "🎧 Earphones available hai - ₹199 se start 💰";
+  }
+  else if(input.includes("charger")) {
+    reply = "🔌 Fast charger ₹299 🔥";
+  }
+  else if(input.includes("cover")) {
+    reply = "📱 Mobile covers ₹99 se start 😎";
+  }
+  else if(input.includes("price")) {
+    reply = "💰 Products ₹99 se ₹999 tak available hai";
+  }
+  else if(input.includes("location")) {
+    reply = "📍 Sultanpur main shop hai bhai 😎";
+  }
+  else if(input.includes("delivery")) {
+    reply = "🚚 Home delivery available hai";
+  }
+  else if(input.includes("contact")) {
+    reply = "📞 Call karo: 7000406944";
   }
 
+  chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
+
   document.getElementById("input").value = "";
-}
-
-// Voice input
-function startVoice() {
-  let recognition = new webkitSpeechRecognition();
-  recognition.lang = "hi-IN";
-
-  recognition.onresult = function(event) {
-    let text = event.results[0][0].transcript;
-    document.getElementById("input").value = text;
-    send();
-  };
-
-  recognition.start();
 }
 </script>
 
