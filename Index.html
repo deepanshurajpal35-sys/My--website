@@ -1,37 +1,12 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Chatbot</title>
-</head>
 <body>
 
-<h2>🤖 Chatbot</h2>
-
-<input id="input" placeholder="Message...">
-<button onclick="send()">Send</button>
-
-<div id="chat"></div>
+<button onclick="test()">Click me</button>
 
 <script>
-function send() {
-  let inputBox = document.getElementById("input");
-  let text = inputBox.value;
-
-  if(text === "") return;
-
-  let chat = document.getElementById("chat");
-
-  chat.innerHTML += "<p><b>You:</b> " + text + "</p>";
-
-  let reply = "Samajh nahi aaya 😅";
-
-  if(text.toLowerCase().includes("hello")) {
-    reply = "Hello bhai 😎";
-  }
-
-  chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
-
-  inputBox.value = "";
+function test() {
+  alert("Working hai 😎");
 }
 </script>
 
