@@ -99,11 +99,55 @@ function send() {
   chat.appendChild(typing);
   chat.scrollTop = chat.scrollHeight;
 
-  let reply = "Samajh nahi aaya 😅";
+  <script>
+async function send() {
+  let input = document.getElementById("input").value;
+  if(input === "") return;
 
-  if(input.toLowerCase().includes("hello")) {
-    reply = "Hello bhai 😎 kya help karu?";
+  let chat = document.getElementById("chat");
+
+  chat.innerHTML += `<div class="msg user">${input}</div>`;
+
+  let typing = document.createElement("div");
+  typing.className = "typing";
+  typing.innerText = "Bot is typing...";
+  chat.appendChild(typing);
+
+  try {
+    let res = await fetch("https://api.affiliateplus.xyz/api/chatbot", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        message: input,
+        botname: "MyBot",
+        ownername: "Deepanshu"
+      })
+    });
+
+    let data = await res.json();
+
+    typing.remove();
+    chat.innerHTML += `<div class="msg bot">${data.message}</div>`;
+    chat.scrollTop = chat.scrollHeight;
+
+  } catch (error) {
+    typing.remove();
+    chat.innerHTML += `<div class="msg bot">Error aagaya 😅</div>`;
   }
+
+  document.getElementById("input").value = "";
+}
+
+// Enter key
+document.getElementById("input").addEventListener("keypress", function(e) {
+  if (e.key === "Enter") {
+    send();
+  }
+});
+</script>
+  
   else if(input.toLowerCase().includes("kaise ho")) {
     reply = "Main badhiya hu 🔥 tu bata kya chal raha hai?";
   }
