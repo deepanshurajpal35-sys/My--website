@@ -1,76 +1,8 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Smart AI Bot</title>
-</head>
+<body>
 
-<body style="background:black; color:white; font-family:sans-serif; text-align:center;">
-
-<h2>🤖 Smart Chatbot</h2>
-
-<input id="input" placeholder="Ask anything..." />
-<button onclick="send()">Send</button>
-
-<div id="chat"></div>
-
-<script>
-function send() {
-  let input = document.getElementById("input").value.toLowerCase();
-  if(input === "") return;
-
-  let chat = document.getElementById("chat");
-
-  chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
-
-  let reply = "Samajh nahi aaya 😅";
-
-  // greetings
-  if(input.includes("hello") || input.includes("hi")) {
-    reply = "Hello bhai 😎 kaise help karu?";
-  }
-  else if(input.includes("kaise ho")) {
-    reply = "Main badhiya hu 🔥 tu bata?";
-  }
-
-  // business
-  else if(input.includes("earphone")) {
-    reply = "🎧 Earphones ₹199 se start";
-  }
-  else if(input.includes("charger")) {
-    reply = "🔌 Fast charger ₹299";
-  }
-  else if(input.includes("cover")) {
-    reply = "📱 Covers ₹99 se";
-  }
-  else if(input.includes("price")) {
-    reply = "💰 ₹99 se ₹999 tak sab mil jayega";
-  }
-  else if(input.includes("location")) {
-    reply = "📍sultanpur main shop hai bhai";
-  }
-  else if(input.includes("delivery")) {
-    reply = "🚚 Delivery available hai";
-  }
-  else if(input.includes("contact")) {
-    reply = "📞 Call: 7000406944";
-  }
-
-  // smart replies
-  else if(input.includes("business idea")) {
-    reply = "Mobile accessories best business hai 💰";
-  }
-  else if(input.includes("money")) {
-    reply = "Online + offline dono se earning kar sakta hai 🚀";
-  }
-  else if(input.includes("coding")) {
-    reply = "Coding future hai bhai 😎";
-  }
-
-  chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
-
-  document.getElementById("input").value = "";
-}
-</script>
+<h1>TEST SUCCESS 😎</h1>
 
 </body>
 </html>
