@@ -1,77 +1,132 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Smart Chatbot</title>
+  <title>Pro Shop Bot</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial;
+      background: #111;
+      color: white;
+    }
+
+    header {
+      background: #075e54;
+      padding: 15px;
+      text-align: center;
+      font-size: 18px;
+    }
+
+    #chat {
+      height: 80vh;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .msg {
+      max-width: 70%;
+      padding: 10px;
+      margin: 8px;
+      border-radius: 10px;
+    }
+
+    .user {
+      background: #25d366;
+      margin-left: auto;
+      text-align: right;
+    }
+
+    .bot {
+      background: #333;
+      margin-right: auto;
+    }
+
+    #inputBox {
+      display: flex;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+    }
+
+    input {
+      flex: 1;
+      padding: 15px;
+      border: none;
+      outline: none;
+    }
+
+    button {
+      padding: 15px;
+      border: none;
+      background: #25d366;
+      color: white;
+    }
+
+    a {
+      color: yellow;
+    }
+  </style>
 </head>
 
-<body style="background:black; color:white; font-family:sans-serif; text-align:center;">
+<body>
 
-<h2>🤖 Smart Shop Chatbot</h2>
-
-<input id="input" placeholder="Ask anything..." />
-<button onclick="send()">Send</button>
+<header>🛒 My Mobile Shop</header>
 
 <div id="chat"></div>
+
+<div id="inputBox">
+  <input id="input" placeholder="Type message..." />
+  <button onclick="send()">Send</button>
+</div>
 
 <script>
 function send() {
   let inputBox = document.getElementById("input");
-  let input = inputBox.value.toLowerCase();
+  let text = inputBox.value.toLowerCase();
 
-  if(input === "") return;
+  if(text === "") return;
 
   let chat = document.getElementById("chat");
 
-  chat.innerHTML += "<p><b>You:</b> " + input + "</p>";
+  chat.innerHTML += `<div class="msg user">${text}</div>`;
 
   let reply = "Samajh nahi aaya 😅";
 
-  // greetings
-  if(input.includes("hello") || input.includes("hi")) {
-    reply = "Hello bhai 😎 kaise help karu?";
+  if(text.includes("hi") || text.includes("hello")) {
+    reply = "Hello bhai 😎 kya chahiye?";
   }
-  else if(input.includes("kaise ho")) {
-    reply = "Main badhiya hu 🔥";
+  else if(text.includes("earphone")) {
+    reply = "🎧 Earphones ₹199 👉 type 'order earphone'";
   }
-
-  // shop replies
-  else if(input.includes("earphone")) {
-    reply = "🎧 Earphones ₹199 se start";
+  else if(text.includes("charger")) {
+    reply = "🔌 Charger ₹299 👉 type 'order charger'";
   }
-  else if(input.includes("charger")) {
-    reply = "🔌 Charger ₹299";
+  else if(text.includes("cover")) {
+    reply = "📱 Cover ₹99 👉 type 'order cover'";
   }
-  else if(input.includes("cover")) {
-    reply = "📱 Covers ₹99 se";
+  else if(text.includes("location")) {
+    reply = "📍 sultanpur main shop hai";
   }
-  else if(input.includes("price")) {
-    reply = "💰 ₹99 se ₹999 tak sab mil jayega";
-  }
-  else if(input.includes("location")) {
-    reply = "📍 Bhopal main shop hai bhai";
-  }
-  else if(input.includes("delivery")) {
-    reply = "🚚 Delivery available hai";
-  }
-  else if(input.includes("contact")) {
-    reply = "📞 Call: 9XXXXXXXXX";
+  else if(text.includes("contact")) {
+    reply = "📞 Call: 7000406944";
   }
 
-  // smart replies
-  else if(input.includes("business")) {
-    reply = "Mobile accessories best business hai 💰";
-  }
-  else if(input.includes("money")) {
-    reply = "Online + offline dono se kama sakta hai 🚀";
-  }
-  else if(input.includes("coding")) {
-    reply = "Coding future hai bhai 😎";
+  // ORDER SYSTEM
+  else if(text.includes("order")) {
+    reply = "✅ Order confirm! WhatsApp par message karo 👉 <a href='https://wa.me/91XXXXXXXXXX'>Click here</a>";
   }
 
-  chat.innerHTML += "<p><b>Bot:</b> " + reply + "</p>";
+  chat.innerHTML += `<div class="msg bot">${reply}</div>`;
+  chat.scrollTop = chat.scrollHeight;
 
   inputBox.value = "";
 }
+
+// enter key
+document.getElementById("input").addEventListener("keypress", function(e) {
+  if(e.key === "Enter") send();
+});
 </script>
 
 </body>
